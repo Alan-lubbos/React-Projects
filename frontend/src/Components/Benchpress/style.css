@@ -1,0 +1,36 @@
+.benchpress-container {
+  max-width: 1200px;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.exercise-title, .exercise-description {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .benchpress-container {
+    width: 95%;
+  }
+  .exercise-title {
+    font-size: 1.8em;
+  }
+  .exercise-description {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .exercise-title {
+    font-size: 1.5em;
+  }
+  .exercise-description {
+    font-size: 0.9em;
+  }
+}

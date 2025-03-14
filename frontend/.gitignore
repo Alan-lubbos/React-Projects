@@ -1,0 +1,32 @@
+# Node.js
+node_modules/
+
+# Build directories
+build/
+dist/
+
+# .env files (you don’t want to push this)
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE or editor files
+.vscode/
+.idea/
+
+# Package lock files (if you want to ignore them, but usually keep them if you need)
+# package-lock.json
+# yarn.lock
+
+# Temporary files
+*.swp
+*.swo
+*.bak
+*.tmp
