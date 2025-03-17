@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { JSX } from "react/jsx-runtime";
 
 interface Message {
-  sender: "user" | "ai"; // ✅ Restrict sender values
+  sender: "user" | "ai"; 
   text: string;
 }
 
 interface MessagesState {
-  map(arg0: (msg: { sender: string; text: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined; }, index: React.Key | null | undefined) => JSX.Element): import("react").ReactNode;
   messages: Message[];
   aiResponse: string;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -25,7 +23,6 @@ const messagesSlice = createSlice({
   name: "messages",
   initialState,
   reducers: {
-    
     addMessage: (state, action: PayloadAction<Message>) => {
       state.messages.push(action.payload);
     },

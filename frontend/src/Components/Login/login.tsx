@@ -7,17 +7,16 @@ import { paths } from "../../Utils/constants";
 import { useAppDispatch } from "../../State/store";
 import { loginUserThunk, setUsername, setPassword } from "../../State/reducers/userAuthSlice";
 import { selectUserAuth } from "../../State/Selectors/loginselector";
-import "./style.css";
 import { selectStatus } from "../../State/Selectors/homeselector";
 import Loading from "../Loading/loading";
+import "./style.css";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { accessToken, error, username, password } = useSelector(selectUserAuth);
-  const status = useSelector(selectStatus); // Get login status from Redux
-
+  const status = useSelector(selectStatus);
   const hasRunEffect = useRef(false);
 
   useEffect(() => {
@@ -32,60 +31,71 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const result = await dispatch(loginUserThunk({ username, password })).unwrap();
-      console.log("Token after login:", result);
-
       if (result) {
         navigate(paths.home);
-      } else {
-        console.log("Failed to get accessToken after login");
       }
     } catch (error: any) {
       console.error("[LOGIN] Login failed:", error.message);
     }
   };
 
-  const isLoading = status?.login?.status === "pending"; // Check if login is in progress
+  const isLoading = status?.login?.status === "pending";
 
   return (
     <div className="login-container">
-      <Loading /> {/* Show Loading Spinner when logging in */}
-      <h2 className="login-header">Welcome to FlexGym</h2>
+      {isLoading && <Loading />} 
 
-      <TextField
-        label="Username"
-        variant="outlined"
-        value={username}
-        onChange={(e) => dispatch(setUsername(e.target.value))}
-        className="login-input"
-        disabled={isLoading} // Disable input when loading
-      />
-      <TextField
-        label="Password"
-        type="password"
-        variant="outlined"
-        value={password}
-        onChange={(e) => dispatch(setPassword(e.target.value))}
-        className="login-input"
-        disabled={isLoading} // Disable input when loading
-      />
+      <div className="login-left">
+        <img 
+          src="https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg" 
+          alt="Gym Workout" 
+          className="login-image" 
+        />
+      </div>
 
-      {error && <div className="error-message">Error: {error}</div>}
+      <div className="login-right">
+        <h2 className="login-header">WELCOME BACK <br /> GYM MEMBER!</h2>
+        <p className="login-subtext">Log in to your account to access your personalized fitness journey.</p>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleLogin}
-        className="login-btn"
-        disabled={isLoading} // Disable button when loading
-      >
-        {isLoading ? "Logging in..." : "Login"}
-      </Button>
+        <TextField
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(e) => dispatch(setUsername(e.target.value))}
+          className="login-input"
+          disabled={isLoading}
+        />
+        <TextField
+          label="Password"
+          type="password"
+          variant="outlined"
+          value={password}
+          onChange={(e) => dispatch(setPassword(e.target.value))}
+          className="login-input"
+          disabled={isLoading}
+        />
 
-      <p className="or-text">or</p>
+        {error && <div className="error-message">Error: {error}</div>}
 
-      <Button variant="contained" className="google-login-btn" disabled={isLoading}>
-        Login Using Google <GoogleIcon className="google-icon" />
-      </Button>
+        <Button 
+          variant="contained" 
+          className="google-login-btn" 
+          disabled={isLoading}
+        >
+          <GoogleIcon className="google-icon" /> Login Using Google
+        </Button>
+
+        <Button
+          variant="contained"
+          className="login-btn"
+          onClick={handleLogin}
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : "LOGIN"}
+        </Button>
+
+        <p className="create-account-text">Create Account | Need Help?</p>
+      </div>
     </div>
   );
 };
